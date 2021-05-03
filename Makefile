@@ -1,7 +1,9 @@
 stow = cd config && stow -v -t ~
 
-install:
+yay-install:
 	xargs -d '\n' -a packages/package.list yay --noconfirm --needed -S
+pacman-install:
+	xargs -d '\n' -a packages/package.list sudo pacman --noconfirm --needed -S
 i3:
 	$(stow) i3
 
