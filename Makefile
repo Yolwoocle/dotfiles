@@ -6,6 +6,6 @@ i3:
 	$(stow) i3
 
 arch:
-	ln -sv “~/dotfiles/kitty/kitty.conf ~/.config/kitty/kitty.conf
-	ln -sv “~/dotfiles/zsh/zshrc ~/.zshrc
-	ln -sv “~/dotfiles/git/gitconfig” ~/.gitconfig”
+	ln -sf ~/dotfiles/config/git/gitconfig ~/.gitconfig
+	ln -sf ~/dotfiles/config/kitty/kitty.conf ~/.config/kitty/kitty.conf
+	ln -sf ~/dotfiles/config/zsh/zshrc ~/.zshrc
