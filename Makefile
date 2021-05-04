@@ -11,3 +11,6 @@ arch:
 	ln -sf ~/dotfiles/config/git/gitconfig ~/.gitconfig
 	ln -sf ~/dotfiles/config/kitty/kitty.conf ~/.config/kitty/kitty.conf
 	ln -sf ~/dotfiles/config/zsh/zshrc ~/.zshrc
+
+i3bar:
+	pip install --user bumblebee-status
