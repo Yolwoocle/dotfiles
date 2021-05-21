@@ -1,5 +1,14 @@
 # ecircumflex
 
+bindsym $mod+dead_circumflex exec ~/eww/target/release/eww daemon
+# bindsym $mod+p exec ~/eww/target/release/eww open test
+# bindsym $mod+Shift+p exec ~/eww/target/release/eww close test
+
+bindsym $mod+p exec ~/.config/eww/launch.sh launch
+bindsym $mod+Shift+p exec ~/.config/eww/launch.sh close 
+
+
+
 #####
 # rofi app
 # compton
@@ -12,6 +21,8 @@ exec --no-startup-id alttab -fg "#d58681" -bg "#4a4a4a" -frame "#eb564d" -t 128x
 exec setxkbmap -option caps:escape
 exec xinput disable 8 
 exec xinput disable 7 
+exec --no-startup-id eww daemon
+exec --no-startup-id amixer -q set Master 0% unmute 
 
 # i3 config file (v4)
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
@@ -103,12 +114,11 @@ mode "$keyboard"{
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+F1 exec python ~/Apps/Wumpfile/GtkTest.py
+bindsym $mod+F1 exec qutebrowser 
 bindsym $mod+F2 exec brave
 bindsym $mod+F3 exec pcmanfm
 bindsym $mod+F4 exec ranger
-bindsym $mod+Shift+F3 exec pcmanfm_pkexec
-bindsym $mod+F5 exec terminal -e 'mocp'
+bindsym $mod+F5 exec kitty -e 'ranger'
 bindsym $mod+t exec --no-startup-id pkill picom
 bindsym $mod+Ctrl+t exec --no-startup-id picom -b
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
@@ -210,7 +220,7 @@ bindsym $mod+Ctrl+Left workspace prev
 # INFO POUR KEYS => xmodmap -pk | xev 
 #################
 # Lauch Config
-bindsym $mod+parenright exec kitty -e vim ~/.i3/config 
+bindsym $mod+parenright exec kitty -e vim ~/dotfiles/config/i3/config 
 
 bindsym $mod+exclam exec ~/Desktop/i3-keyboard-layout/i3-keyboard-layout cycle "fr azerty" "fr bepo" us
 
@@ -380,12 +390,13 @@ exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
+exec --no-startup-id clipit -n
 # exec --no-startup-id blueman-applet
 # exec_always --no-startup-id sbxkb
 # exec --no-startup-id start_conky_maia
-exec --no-startup-id conky -c /usr/share/conky/conky_maia
+exec conky -c ~/dotfiles/config/conky/conky_maia
 # exec --no-startup-id start_conky_green
-exec --no-startup-id xautolock -time 10 -locker blurlock
+# exec --no-startup-id xautolock -time 10 -locker blurlock
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 
@@ -423,19 +434,20 @@ set_from_resource $term_color15    color15
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
-	# i3bar_command i3bar
+	# i3bar_command $HOME/.config/polybar/launch.sh
+	i3bar_command i3bar
 	# status_command i3status
 	# status_command i3status | ~/Desktop/i3-keyboard-layout/i3-keyboard-layout i3status
 	
 	# status_command ~/Apps/bumblebee-status/bumblebee-status \
-	#	-m cpu memory battery time \
-	#	pasink pasource -p time.format="%H:%M" -t solarized-powerline
+	# -m cpu memory battery time \
+	# pasink pasource -p time.format="%H:%M" -t solarized-powerline
 	status_command bumblebee-status 				\
-		-m cpu wifi date time battery xrandr layout		\
+		-m time battery xrandr layout			\
 		-p cpu.interval=5s memory.interval=1m root.path=/ 	\
 		-t iceberg-powerline
 	
-	position bottom
+	# position bottom
 
 ## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
 #	tray_output primary
@@ -531,6 +543,3 @@ mode "$mode_gaps_outer" {
         bindsym Escape mode "default"
 
 }
-
-
-
