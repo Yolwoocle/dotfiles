@@ -7,6 +7,7 @@ pacman-install:
 arch:
 	ln -sf ~/dotfiles/config/git/gitconfig ~/.gitconfig
 	ln -sf ~/dotfiles/config/kitty/kitty.conf ~/.config/kitty/kitty.conf
+	echo "change export ZSH path with your home directory"
 	ln -sf ~/dotfiles/config/zsh/zshrc ~/.zshrc
 
 i3:
