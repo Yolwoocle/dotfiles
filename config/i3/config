@@ -1,22 +1,5 @@
-# ecircumflex
+#!/bin/sh
 
-bindsym $mod+dead_circumflex exec ~/eww/target/release/eww daemon
-# bindsym $mod+p exec ~/eww/target/release/eww open test
-# bindsym $mod+Shift+p exec ~/eww/target/release/eww close test
-
-bindsym $mod+p exec ~/.config/eww/launch.sh launch
-bindsym $mod+Shift+p exec ~/.config/eww/launch.sh close 
-
-
-
-#####
-# rofi app
-# compton
-#####
-# workspace $workspace_name output $moniteur_name(eDP-1/HDMI1)
-# xprop = propiete de une fenettre
-# assign [class=$nomdelafenettre] $workspace_name # souvrira toujours dans un workspace defini
-# echo "\ue0b0" et b2
 exec --no-startup-id alttab -fg "#d58681" -bg "#4a4a4a" -frame "#eb564d" -t 128x150 -i 127x64
 exec setxkbmap -option caps:escape
 exec xinput disable 8 
@@ -24,18 +7,22 @@ exec xinput disable 7
 exec --no-startup-id eww daemon
 exec --no-startup-id amixer -q set Master 0% unmute 
 
-# i3 config file (v4)
-# Please see http://i3wm.org/docs/userguide.html for a complete reference!
-
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
 exec setxkbmap -model pc105
-# set default desktop layout (default is tiling)
-# workspace_layout tabbed <stacking|tabbed>
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
 default_border pixel 1
 default_floating_border normal
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+# font xft:URWGothic-Book 11
+font xft:FiraCode 8
+
+# eww
+bindsym $mod+p exec ~/.config/eww/launch.sh launch
+bindsym $mod+Shift+p exec ~/.config/eww/launch.sh close 
 
 # Hide borders
 hide_edge_borders none
@@ -45,20 +32,18 @@ bindsym $mod+u border none
 bindsym $mod+y border pixel 1
 bindsym $mod+n border normal
 
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-# font xft:URWGothic-Book 11
-font xft:FiraCode 8
-
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec terminal
 bindsym $mod+Shift+Return exec kitty zsh
+bindsym $mod+w exec kitty zsh
 bindsym $mod+Shift+w exec kitty tmux new-session /bin/zsh 
 
+
 # kill focused window
+bindsym $mod+q kill
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+a kill
 
@@ -66,7 +51,7 @@ bindsym $mod+Shift+a kill
 bindsym $mod+d exec --no-startup-id dmenu_recency
 
 # launch categorized menu
-bindsym $mod+z exec --no-startup-id morc_menu
+# bindsym $mod+z exec --no-startup-id morc_menu
 
 ################################################################################################
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
@@ -85,20 +70,16 @@ bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 # bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
 
 # Start Applications
-bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
+# bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 # bindsym $mod+g exec ~/Apps/./Notable-1.8.4.AppImage # urxvt -e ~/Apps/Notable-1.8.4.AppImage
 bindsym $mod+g mode "$launch_app"
-set $launch_app Launcher={(Shift)n: Notable(1.9.0), a: Atom, c: VSCode, t: Urxvt, b: Brackets, d:Godot, i: Chrome, p: pico-8}
+set $launch_app Launcher={(Shift)n: Notable(1.9.0), d:Godot, p: pico-8, c: Cura}
 mode "$launch_app"{
     bindsym n exec ~/Apps/./Notable-1.8.4.AppImage; mode "default"
-    bindsym a exec atom; mode "default"
-    bindsym c exec code; mode "default"
-    bindsym t exec urxvt; mode "default"
-    bindsym b exec brackets; mode "default"
-    bindsym p exec exec wine ~/Apps/pico-8/./pico8.exe; mode "default"
+    bindsym c exec ~/Apps/./Cura.AppImage; mode "default"
+    bindsym p exec exec wine ~/Apps/Pico8nux/pico-8/./pico8_32bit; mode "default"
     bindsym Shift+n exec ~/Apps/./Notable-1.9.0.AppImage; mode "default"
     bindsym d exec ~/Apps/./Godot.64; mode "default"
-    bindsym i exec ~/Apps/chromium-latest-linux/./run.sh; mode "default"
     # exit system mode: "Enter" or "Escape"
     bindsym Return mode "default"
     bindsym Escape mode "default"	
@@ -117,36 +98,20 @@ mode "$keyboard"{
 bindsym $mod+F1 exec qutebrowser 
 bindsym $mod+F2 exec brave
 bindsym $mod+F3 exec pcmanfm
-bindsym $mod+F4 exec ranger
-bindsym $mod+F5 exec kitty -e 'ranger'
+bindsym $mod+F4 exec kitty -e 'ranger'
 bindsym $mod+t exec --no-startup-id pkill picom
 bindsym $mod+Ctrl+t exec --no-startup-id picom -b
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
+bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
+
+# Print
 bindsym Print exec --no-startup-id i3-scrot
 bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
 bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
-bindsym $mod+Shift+t exec transset-df -a
-
-
 
 # bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
-bindsym $mod+Shift+h exec kitty -e python3 ~/Documents/ShortcutHelp/ShortcutHelp.py
-for_window [title="Pythoni3help"] floating enable resize set 30 ppt 30 ppt resize set 30 ppt 60 px resize set height 30 px
-
-#### https://github.com/i3/i3/issues/1949
-# resize set 30 ppt 40 ppt
-# resize set 30 ppt 100 px
-
-# resize set width 30 ppt
-# resize set height 50 px
-
-
-# change height to 30 ppt, don't change width
-# resize set w 30 ppt
-
-
-
-bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
+# bindsym $mod+Shift+h exec kitty -e python3 ~/Documents/ShortcutHelp/ShortcutHelp.py
+# for_window [title="Pythoni3help"] floating enable resize set 30 ppt 30 ppt resize set 30 ppt 60 px resize set height 30 px
 
 # focus_follows_mouse no
 
@@ -182,15 +147,15 @@ bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_
 # split orientation
 bindsym $mod+h split h;exec notify-send 'tile horizontally'
 bindsym $mod+v split v;exec notify-send 'tile vertically'
-bindsym $mod+q split toggle
+# bindsym $mod+q split toggle
 
 # toggle fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+# bindsym $mod+s layout stacking
+# bindsym $mod+w layout tabbed
+# bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -199,10 +164,10 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # toggle sticky
-bindsym $mod+Shift+s sticky toggle
+# bindsym $mod+Shift+s sticky toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+# bindsym $mod+a focus parent
 
 # move the currently focused window to the scratchpad
 # bindsym $mod+Shift+minus move scratchpad
@@ -212,7 +177,7 @@ bindsym $mod+a focus parent
 # bindsym $mod+minus scratchpad show
 
 # navigate workspaces next / previous
-# bindsym $mod+Ctrl+Right workspace next
+bindsym $mod+Ctrl+Right workspace next
 bindsym $mod+Ctrl+Left workspace prev
 
 
@@ -221,30 +186,20 @@ bindsym $mod+Ctrl+Left workspace prev
 #################
 # Lauch Config
 bindsym $mod+parenright exec kitty -e vim ~/dotfiles/config/i3/config 
-
-bindsym $mod+exclam exec ~/Desktop/i3-keyboard-layout/i3-keyboard-layout cycle "fr azerty" "fr bepo" us
-
-# mouse menu
-bindsym $mod+twosuperior mode "$mouse"
-set $mouse Mouse menu
-mode "$mouse" {
-	bindsym up Mouse move up
-	bindsym Return mode "default"
-	bindsym Escape mode "default"	
-}
+# bindsym $mod+exclam exec ~/Desktop/i3-keyboard-layout/i3-keyboard-layout cycle "fr azerty" "fr bepo" us
 
 # Resize window (you can also use the mouse for that)
-bindsym $mod+equal mode "$optionmenu"
-set $optionmenu Auto 2Rigth 2Left 
-mode "$optionmenu" {
-        bindsym a exec urxvt -e xrandr --auto; mode "default"
-	bindsym r exec urxvt -e xrandr --output HDMI1 --right-of eDP1 --auto; mode "default"
-        bindsym l exec urxvt -e xrandr --output HDMI1 --left-of eDP1 --auto; mode "default"
-        
-	# exit resize mode: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
+# bindsym $mod+equal mode "$optionmenu"
+# set $optionmenu Auto 2Rigth 2Left 
+# mode "$optionmenu" {
+#        bindsym a exec urxvt -e xrandr --auto; mode "default"
+#	bindsym r exec urxvt -e xrandr --output HDMI1 --right-of eDP1 --auto; mode "default"
+#        bindsym l exec urxvt -e xrandr --output HDMI1 --left-of eDP1 --auto; mode "default"
+#        
+#	# exit resize mode: Enter or Escape
+#        bindsym Return mode "default"
+#        bindsym Escape mode "default"
+#}
 
 # Workspace names
 # to display names or symbols instead of plain workspace numbers you can use
@@ -330,13 +285,13 @@ for_window [class="Xfburn"] floating enable
 for_window [urgent=latest] focus
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+# bindsym $mod+Shift+c reload
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Set shut down, restart and locking features
 bindsym $mod+0 mode "$mode_system"
@@ -449,27 +404,27 @@ bar {
 	
 	# position bottom
 
-## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
-#	tray_output primary
-#	tray_output eDP1
+	## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
+	#	tray_output primary
+	#	tray_output eDP1
 
 	bindsym button4 nop
 	bindsym button5 nop
-#   font xft:URWGothic-Book 11
+	#   font xft:URWGothic-Book 11
 	strip_workspace_numbers yes
 
-    colors {
-        background #222D31
-        statusline #F9FAF9
-        separator  #454947
+	colors {
+        	background #222D31
+        	statusline #F9FAF9
+        	separator  #454947
 
-#                      border  backgr. text
-        focused_workspace  #F9FAF9 #FF8086 #292F34
-        active_workspace   #595B5B #353836 #FDF6E3
-        inactive_workspace #595B5B #222D31 #EEE8D5
-        binding_mode       #FF8086 #2C2C2C #F9FAF9
-        urgent_workspace   #FF8086 #FDF6E3 #E5201D
-    }
+		#                  border  backgr. text
+	        focused_workspace  #F9FAF9 #FF8086 #292F34
+       		active_workspace   #595B5B #353836 #FDF6E3
+        	inactive_workspace #595B5B #222D31 #EEE8D5
+        	binding_mode       #FF8086 #2C2C2C #F9FAF9
+        	urgent_workspace   #FF8086 #FDF6E3 #E5201D
+    	}
 }
 
 # hide/unhide i3status bar
@@ -520,7 +475,7 @@ mode "$mode_gaps" {
 }
 mode "$mode_gaps_inner" {
         bindsym plus  gaps inner current plus 5
-        bindsym minus gaps inner current minus 5
+        bindsym minus gaps inner current minucolorscheme [space] [Ctrls 5
         bindsym 0     gaps inner current set 0
 
         bindsym Shift+plus  gaps inner all plus 5
@@ -543,3 +498,11 @@ mode "$mode_gaps_outer" {
         bindsym Escape mode "default"
 
 }
+#####
+# rofi app
+# compton
+#####
+# workspace $workspace_name output $moniteur_name(eDP-1/HDMI1)
+# xprop = propiete de une fenettre
+# assign [class=$nomdelafenettre] $workspace_name # souvrira toujours dans un workspace defini
+# echo "\ue0b0" et b2

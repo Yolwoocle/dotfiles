@@ -9,6 +9,7 @@ arch:
 	ln -sf ~/dotfiles/config/kitty/kitty.conf ~/.config/kitty/kitty.conf
 	echo "change export ZSH path with your home directory"
 	ln -sf ~/dotfiles/config/zsh/zshrc ~/.zshrc
+	ln -sf ~/dotfiles/config/picom/picom.conf ~/.config/picom.conf
 
 i3:
 	ln -sf ~/dotfiles/config/i3/config ~/.i3/config

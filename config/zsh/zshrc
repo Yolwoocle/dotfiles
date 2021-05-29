@@ -99,4 +99,5 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias py="python3.10"
 alias cls="clear"
-alias eww="./eww/target/release/eww"
+alias :q="exit"
+# alias eww="./eww/target/release/eww"
