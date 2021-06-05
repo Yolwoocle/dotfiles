@@ -1,5 +1,5 @@
 GRUB_DEFAULT=saved
-GRUB_TIMEOUT=5
+GRUB_TIMEOUT=10
 GRUB_TIMEOUT_STYLE=hidden
 GRUB_DISTRIBUTOR="ArkanYota"
 GRUB_CMDLINE_LINUX_DEFAULT="quiet apparmor=1 security=apparmor udev.log_priority=3"

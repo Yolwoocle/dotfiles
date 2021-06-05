@@ -2,7 +2,7 @@ yay-install:
 	xargs -d '\n' -a packages/package.list yay --noconfirm --needed -S
 
 pacman-install:
-	xargs -d '\n' -a packages/package.list sudo pacman --noconfirm --needed -S
+	xargs -d '\n' -a packages/pacman-package.list sudo pacman --noconfirm --needed -S
 
 arch:
 	ln -sf ~/dotfiles/config/git/gitconfig ~/.gitconfig
@@ -13,9 +13,17 @@ arch:
 
 i3:
 	ln -sf ~/dotfiles/config/i3/config ~/.i3/config
-	pip install --user bumblebee-status
 
 theme-grub:
 	echo "change GRUB_THEME path with your home directory"
 	sudo ln -sf ~/dotfiles/grub/etc-default-grub /etc/default/grub
 	sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+setup-keyboard:
+	sudo ln -sf ~/dotfiles/keyboard/ay /usr/share/X11/xkb/symbols/ay
+
+set-firacode:
+	sudo ln -sf ~/dotfiles/font/* /usr/share/fonts/TTF/
+
+set-lightdm:
+	sudo ln -f ~/dotfiles/lightdm/slick-greeter.conf /etc/lightdm/slick-greeter.conf
