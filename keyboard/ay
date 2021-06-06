@@ -42,7 +42,7 @@ xkb_symbols "basic" {
     //key <LFSH>	{ [   m,n,o,p ] }; // shift 
     //key <LWIN>	{ [   m,n,o,p ] }; // shift 
     //key <RWIN>	{ [   m,n,o,p ] }; // shift 
-    key <FK02>	{ [ U26,n,o,p ] }; // shift 
+    key <FK02>	{ [ U3C0 ] }; // shift 
 
     include "level3(ralt_switch)"
 };
