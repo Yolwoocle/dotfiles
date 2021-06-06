@@ -23,6 +23,7 @@ setup-keyboard:
 	sudo ln -sf ~/dotfiles/keyboard/ay /usr/share/X11/xkb/symbols/ay
 
 set-firacode:
+	sudo mkdir -p /usr/share/fonts/TTF
 	sudo ln -sf ~/dotfiles/font/* /usr/share/fonts/TTF/
 
 set-lightdm:
